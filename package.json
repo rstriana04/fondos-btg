@@ -7,7 +7,7 @@
     "packages/shared/*"
   ],
   "scripts": {
-    "api:start": "cd packages/shared/mock-api && node server.js",
+    "api:start": "cd packages/shared/mock-api && npx json-server db.json --port 3000",
     "flutter:run": "cd apps/flutter-app && flutter run -d chrome",
     "angular:serve": "cd apps/angular-app && ng serve --port 4200",
     "start:all": "concurrently \"npm run api:start\" \"npm run angular:serve\""
