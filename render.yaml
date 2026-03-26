@@ -22,7 +22,6 @@ services:
   - type: web
     name: fondos-btg-angular
     runtime: static
-    plan: free
     rootDir: apps/angular-app
     buildCommand: >-
       sed -i "s|http://localhost:3000|$API_URL|g" src/app/core/http/api-client.service.ts
