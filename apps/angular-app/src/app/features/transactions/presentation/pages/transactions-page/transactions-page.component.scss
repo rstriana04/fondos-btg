@@ -4,7 +4,13 @@
 .transactions-page {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .page-title {
@@ -14,6 +20,375 @@
 
   @include desktop {
     display: none;
+  }
+}
+
+.chart-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: $bg-white;
+  border: 1px solid $divider;
+  border-radius: 8px;
+  cursor: pointer;
+  color: $text-secondary;
+  transition: all 0.2s;
+
+  &:hover {
+    border-color: $blue-accent;
+    color: $blue-accent;
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+// Stats row
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+
+  @include desktop {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+}
+
+.stat-card {
+  @include card;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.stat-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  &.total {
+    background: rgba($blue-accent, 0.1);
+    color: $blue-accent;
+  }
+
+  &.subscription {
+    background: $subscription-icon-bg;
+    color: $error;
+  }
+
+  &.cancellation {
+    background: $cancellation-icon-bg;
+    color: $success;
+  }
+
+  &.invested {
+    background: rgba($error, 0.08);
+    color: $error;
+  }
+}
+
+.stat-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.stat-label {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: $text-secondary;
+}
+
+.stat-value {
+  font-size: 1rem;
+  font-weight: 700;
+  color: $text-primary;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  @include desktop {
+    font-size: 1.125rem;
+  }
+}
+
+// Charts
+.charts-row {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  @include desktop {
+    flex-direction: row;
+    gap: 16px;
+  }
+}
+
+.chart-card {
+  @include card;
+  padding: 20px;
+  flex: 1;
+}
+
+.chart-title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: $text-primary;
+  margin-bottom: 16px;
+}
+
+// Donut chart
+.donut-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.donut-chart {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.donut-hole {
+  width: 60px;
+  height: 60px;
+  background: $bg-white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.donut-total {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: $text-primary;
+}
+
+.donut-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+
+  &.subscription {
+    background: $error;
+  }
+
+  &.cancellation {
+    background: $success;
+  }
+}
+
+.legend-label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: $text-primary;
+  flex: 1;
+}
+
+.legend-pct {
+  font-size: 0.8125rem;
+  font-weight: 600;
+
+  &.subscription {
+    color: $error;
+  }
+
+  &.cancellation {
+    color: $success;
+  }
+}
+
+// Bar chart
+.bar-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.bar-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.bar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bar-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: $text-secondary;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bar-value {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: $text-primary;
+  flex-shrink: 0;
+}
+
+.bar-track {
+  height: 6px;
+  background: $divider;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  background: $blue-accent;
+  border-radius: 3px;
+  transition: width 0.4s ease;
+}
+
+// Filters
+.filters-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.search-wrapper {
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  color: $text-secondary;
+  pointer-events: none;
+}
+
+.search-input {
+  @include form-input;
+  padding-left: 38px;
+  font-size: 0.8125rem;
+
+  &::placeholder {
+    color: $text-muted;
+  }
+}
+
+.filter-chips {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.filter-group {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.filter-chip {
+  padding: 5px 12px;
+  border: 1px solid $divider;
+  border-radius: 20px;
+  background: $bg-white;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: $text-secondary;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+
+  &:hover {
+    border-color: $blue-accent;
+  }
+
+  &.active {
+    background: rgba($blue-accent, 0.08);
+    border-color: $blue-accent;
+    color: $blue-accent;
+  }
+
+  &.fpv.active {
+    background: $fpv-bg;
+    border-color: $fpv-text;
+    color: $fpv-text;
+  }
+
+  &.fic.active {
+    background: $fic-bg;
+    border-color: $fic-text;
+    color: $fic-text;
+  }
+}
+
+.filter-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.filter-count {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: $text-secondary;
+}
+
+.clear-filters {
+  background: none;
+  border: none;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: $blue-accent;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
   }
 }
 

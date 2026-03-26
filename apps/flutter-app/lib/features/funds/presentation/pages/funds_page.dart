@@ -4,7 +4,6 @@ import 'package:fondos_btg/core/theme/app_colors.dart';
 import 'package:fondos_btg/core/theme/app_text_styles.dart';
 import 'package:fondos_btg/features/balance/presentation/bloc/balance_bloc.dart';
 import 'package:fondos_btg/features/balance/presentation/bloc/balance_event.dart';
-import 'package:fondos_btg/features/balance/presentation/bloc/balance_state.dart';
 import 'package:fondos_btg/features/balance/presentation/widgets/balance_header.dart';
 import 'package:fondos_btg/features/funds/presentation/bloc/fund_bloc.dart';
 import 'package:fondos_btg/features/funds/presentation/bloc/fund_event.dart';
@@ -127,6 +126,13 @@ class _FundsPageState extends State<FundsPage> {
 
     if (result == true && mounted) {
       context.read<BalanceBloc>().add(const RefreshBalance());
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Suscripcion realizada exitosamente'),
+          backgroundColor: AppColors.success,
+          duration: Duration(seconds: 3),
+        ),
+      );
     }
   }
 }

@@ -1,3 +1,27 @@
+<!-- Toast notification -->
+@if (toastMessage()) {
+  <div class="toast" [class.success]="toastType() === 'success'" [class.error]="toastType() === 'error'">
+    <div class="toast-content">
+      @if (toastType() === 'success') {
+        <svg class="toast-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+        </svg>
+      } @else {
+        <svg class="toast-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+        </svg>
+      }
+      <span>{{ toastMessage() }}</span>
+    </div>
+    <button class="toast-close" (click)="dismissToast()" aria-label="Cerrar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+}
+
 <div class="portfolio-page">
   <h2 class="page-title">Mis fondos</h2>
 
@@ -5,7 +29,7 @@
 
   @if (store.loading()) {
     <app-loading-spinner />
-  } @else if (store.error()) {
+  } @else if (store.error() && !toastMessage()) {
     <app-error-message [message]="store.error()!" />
   } @else {
     <!-- Mobile: Cards -->

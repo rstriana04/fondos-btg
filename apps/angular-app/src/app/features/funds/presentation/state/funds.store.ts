@@ -16,12 +16,14 @@ export class FundsStore {
   private readonly _error = signal<string | null>(null);
   private readonly _subscribing = signal<boolean>(false);
   private readonly _subscribeError = signal<string | null>(null);
+  private readonly _subscribeSuccess = signal<string | null>(null);
 
   readonly funds = this._funds.asReadonly();
   readonly loading = this._loading.asReadonly();
   readonly error = this._error.asReadonly();
   readonly subscribing = this._subscribing.asReadonly();
   readonly subscribeError = this._subscribeError.asReadonly();
+  readonly subscribeSuccess = this._subscribeSuccess.asReadonly();
 
   readonly fpvFunds = computed(() => this._funds().filter((f) => f.category === 'FPV'));
   readonly ficFunds = computed(() => this._funds().filter((f) => f.category === 'FIC'));
@@ -74,6 +76,7 @@ export class FundsStore {
             },
             () => {
               this._subscribing.set(false);
+              this._subscribeSuccess.set('Suscripcion realizada exitosamente');
               this.balanceStore.refresh();
               resolve(true);
             }
@@ -90,5 +93,9 @@ export class FundsStore {
 
   clearSubscribeError(): void {
     this._subscribeError.set(null);
+  }
+
+  clearSubscribeSuccess(): void {
+    this._subscribeSuccess.set(null);
   }
 }

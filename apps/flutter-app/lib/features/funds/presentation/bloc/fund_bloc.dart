@@ -46,6 +46,7 @@ class FundBloc extends Bloc<FundEvent, FundState> {
 
     final result = await _subscribeToFund(
       fund: event.fund,
+      amount: event.amount,
       currentBalance: event.currentBalance,
       notificationMethod: event.notificationMethod,
     );

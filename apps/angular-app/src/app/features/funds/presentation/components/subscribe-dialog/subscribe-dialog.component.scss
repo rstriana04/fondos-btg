@@ -111,8 +111,77 @@
   color: $text-primary;
 }
 
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  background: $bg-surface;
+  border: 1px solid $divider;
+  border-radius: 8px;
+  padding: 0 16px;
+  transition: border-color 0.2s, border-width 0.2s;
+
+  &:focus-within {
+    border-color: $blue-accent;
+    border-width: 2px;
+  }
+
+  &.has-error {
+    border-color: $error;
+    border-width: 2px;
+
+    &:focus-within {
+      border-color: $error;
+    }
+  }
+}
+
+.input-prefix {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: $text-primary;
+  margin-right: 4px;
+}
+
+.input-suffix {
+  font-size: 0.75rem;
+  color: $text-secondary;
+  margin-left: 8px;
+  white-space: nowrap;
+}
+
 .form-input {
-  @include form-input;
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 14px 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: $text-primary;
+  outline: none;
+
+  &::placeholder {
+    color: $text-muted;
+    font-weight: 400;
+  }
+
+  &.error {
+    color: $error;
+  }
+}
+
+.field-error {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: $error;
+  font-size: 0.75rem;
+  margin-top: 4px;
+}
+
+.error-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
 }
 
 .notification-options {

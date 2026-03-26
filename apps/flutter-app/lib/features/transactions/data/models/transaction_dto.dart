@@ -57,6 +57,7 @@ class TransactionDto {
           ? TransactionType.subscription
           : TransactionType.cancellation,
       amount: amount,
+      notification: notification ?? '',
       createdAt: DateTime.tryParse(date) ?? DateTime.now(),
     );
   }

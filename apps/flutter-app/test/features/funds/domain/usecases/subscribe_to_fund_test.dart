@@ -30,9 +30,10 @@ void main() {
     category: 'FIC',
   );
 
-  test('should return InsufficientBalanceFailure when balance is less than minAmount', () async {
+  test('should return InsufficientBalanceFailure when balance is less than amount', () async {
     final result = await useCase(
       fund: tFund,
+      amount: 250000,
       currentBalance: 100000,
       notificationMethod: 'EMAIL',
     );
@@ -61,6 +62,7 @@ void main() {
 
     final result = await useCase(
       fund: tFund,
+      amount: 250000,
       currentBalance: 500000,
       notificationMethod: 'EMAIL',
     );
@@ -85,6 +87,7 @@ void main() {
 
     final result = await useCase(
       fund: tFund,
+      amount: 250000,
       currentBalance: 500000,
       notificationMethod: 'SMS',
     );

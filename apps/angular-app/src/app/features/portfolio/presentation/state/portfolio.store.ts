@@ -15,11 +15,13 @@ export class PortfolioStore {
   private readonly _loading = signal<boolean>(false);
   private readonly _error = signal<string | null>(null);
   private readonly _cancelling = signal<number | null>(null);
+  private readonly _cancelSuccess = signal<string | null>(null);
 
   readonly subscriptions = this._subscriptions.asReadonly();
   readonly loading = this._loading.asReadonly();
   readonly error = this._error.asReadonly();
   readonly cancelling = this._cancelling.asReadonly();
+  readonly cancelSuccess = this._cancelSuccess.asReadonly();
 
   loadSubscriptions(): void {
     this._loading.set(true);
@@ -58,6 +60,7 @@ export class PortfolioStore {
           },
           () => {
             this._cancelling.set(null);
+            this._cancelSuccess.set('Suscripcion cancelada exitosamente');
             this.balanceStore.refresh();
             this.loadSubscriptions();
           }
@@ -68,5 +71,9 @@ export class PortfolioStore {
         this._cancelling.set(null);
       },
     });
+  }
+
+  clearCancelSuccess(): void {
+    this._cancelSuccess.set(null);
   }
 }

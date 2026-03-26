@@ -34,9 +34,8 @@
   "user": {
     "id": "1",
     "name": "Usuario Demo",
-    "balance": 300000,
+    "balance": 370000,
     "subscribedFunds": [
-      "1",
       "2"
     ]
   },
@@ -120,6 +119,110 @@
       "notification": "sms",
       "date": "2026-03-26T08:44:09.162Z",
       "id": "joiiFJvf4Tw"
+    },
+    {
+      "type": "cancellation",
+      "fundId": "1",
+      "amount": 75000,
+      "notification": "email",
+      "date": "2026-03-26T14:46:15.621Z",
+      "id": "6vJLsjRwtis"
+    },
+    {
+      "type": "subscription",
+      "fundId": "1",
+      "amount": 75000,
+      "notification": "EMAIL",
+      "date": "2026-03-26T14:46:32.903Z",
+      "id": "YeotxECrxTU"
+    },
+    {
+      "type": "cancellation",
+      "fundId": "2",
+      "amount": 125000,
+      "notification": "sms",
+      "date": "2026-03-26T14:59:27.699Z",
+      "id": "UB42pDNinD0"
+    },
+    {
+      "type": "cancellation",
+      "fundId": "1",
+      "amount": 75000,
+      "notification": "EMAIL",
+      "date": "2026-03-26T14:59:32.648Z",
+      "id": "t3XTmSjarOs"
+    },
+    {
+      "type": "subscription",
+      "fundId": "2",
+      "amount": 125000,
+      "notification": "EMAIL",
+      "date": "2026-03-26T14:59:37.328Z",
+      "id": "Utyazf-fj9U"
+    },
+    {
+      "type": "subscription",
+      "fundId": "4",
+      "amount": 250000,
+      "notification": "SMS",
+      "date": "2026-03-26T14:59:58.520Z",
+      "id": "H_fbgYnf8F8"
+    },
+    {
+      "type": "subscription",
+      "fundId": "1",
+      "amount": 80000,
+      "notification": "EMAIL",
+      "date": "2026-03-26T15:00:10.444Z",
+      "id": "59W9cDpDWfE"
+    },
+    {
+      "type": "cancellation",
+      "fundId": "1",
+      "amount": 80000,
+      "notification": "EMAIL",
+      "date": "2026-03-26T15:00:21.552Z",
+      "id": "FjWsFWPdkPM"
+    },
+    {
+      "type": "cancellation",
+      "fundId": "4",
+      "amount": 250000,
+      "notification": "SMS",
+      "date": "2026-03-26T15:00:22.569Z",
+      "id": "sd600zQv4js"
+    },
+    {
+      "type": "cancellation",
+      "fundId": "2",
+      "amount": 125000,
+      "notification": "EMAIL",
+      "date": "2026-03-26T15:00:23.384Z",
+      "id": "OYfXNGLZY4o"
+    },
+    {
+      "type": "subscription",
+      "fundId": "1",
+      "amount": 80000,
+      "notification": "email",
+      "date": "2026-03-26T15:41:04.681Z",
+      "id": "xaTHGCszR_o"
+    },
+    {
+      "type": "cancellation",
+      "fundId": "1",
+      "amount": 75000,
+      "notification": "",
+      "date": "2026-03-26T15:42:56.745Z",
+      "id": "8rb3kctHcFc"
+    },
+    {
+      "type": "subscription",
+      "fundId": "2",
+      "amount": 125000,
+      "notification": "sms",
+      "date": "2026-03-26T15:43:04.908Z",
+      "id": "NR8Gbe5ln4o"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

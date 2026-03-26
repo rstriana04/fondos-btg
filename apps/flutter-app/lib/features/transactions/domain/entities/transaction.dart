@@ -9,6 +9,7 @@ class FundTransaction extends Equatable {
   final String category;
   final TransactionType type;
   final double amount;
+  final String notification;
   final DateTime createdAt;
 
   const FundTransaction({
@@ -18,6 +19,7 @@ class FundTransaction extends Equatable {
     required this.category,
     required this.type,
     required this.amount,
+    required this.notification,
     required this.createdAt,
   });
 
@@ -35,6 +37,7 @@ class FundTransaction extends Equatable {
         category,
         type,
         amount,
+        notification,
         createdAt,
       ];
 }

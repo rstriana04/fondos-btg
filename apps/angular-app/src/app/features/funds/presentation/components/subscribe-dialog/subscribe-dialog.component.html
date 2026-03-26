@@ -28,13 +28,30 @@
       <!-- Amount -->
       <div class="form-group">
         <label class="form-label">Monto a invertir</label>
-        <input
-          type="text"
-          class="form-input"
-          [class.error]="subscribeError()"
-          [value]="fund().minAmount | copCurrency"
-          readonly
-        />
+        <div class="input-wrapper" [class.has-error]="amountError()">
+          <span class="input-prefix">$</span>
+          <input
+            type="text"
+            class="form-input"
+            [class.error]="amountError()"
+            [value]="amountValue()"
+            (input)="onAmountInput($event)"
+            (keydown)="onAmountKeydown($event)"
+            (blur)="validateAmount()"
+            inputmode="numeric"
+            autocomplete="off"
+            placeholder="0"
+          />
+          <span class="input-suffix">COP</span>
+        </div>
+        @if (amountError()) {
+          <div class="field-error">
+            <svg class="error-icon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+            </svg>
+            <span>{{ amountError() }}</span>
+          </div>
+        }
       </div>
 
       <!-- Notification type -->

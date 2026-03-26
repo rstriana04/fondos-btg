@@ -14,17 +14,19 @@ final class LoadFunds extends FundEvent {
 
 final class SubscribeToFund extends FundEvent {
   final Fund fund;
+  final double amount;
   final double currentBalance;
   final String notificationMethod;
 
   const SubscribeToFund({
     required this.fund,
+    required this.amount,
     required this.currentBalance,
     required this.notificationMethod,
   });
 
   @override
-  List<Object?> get props => [fund, currentBalance, notificationMethod];
+  List<Object?> get props => [fund, amount, currentBalance, notificationMethod];
 }
 
 final class ClearSubscriptionResult extends FundEvent {

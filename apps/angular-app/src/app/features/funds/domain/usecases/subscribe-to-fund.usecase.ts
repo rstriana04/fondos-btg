@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Result, left } from '../../../../core/errors/either';
-import { InsufficientBalanceFailure, AlreadySubscribedFailure } from '../../../../core/errors/failures';
+import { InsufficientBalanceFailure, AlreadySubscribedFailure, ValidationFailure } from '../../../../core/errors/failures';
 import { Fund } from '../entities/fund.entity';
 import { FundRepository } from '../repositories/fund.repository';
 import { FUND_REPOSITORY } from '../../../../core/di/tokens';
@@ -23,7 +23,12 @@ export class SubscribeToFundUseCase {
       return of(left(new AlreadySubscribedFailure(params.fund.name)));
     }
 
-    if (params.currentBalance < params.fund.minAmount) {
+    if (params.amount < params.fund.minAmount) {
+      const min = params.fund.minAmount.toLocaleString('es-CO');
+      return of(left(new ValidationFailure(`El monto minimo es $${min}`)));
+    }
+
+    if (params.currentBalance < params.amount) {
       return of(left(new InsufficientBalanceFailure(params.fund.name, params.fund.minAmount)));
     }
 

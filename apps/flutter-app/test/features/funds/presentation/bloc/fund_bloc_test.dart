@@ -19,6 +19,12 @@ void main() {
   late MockGetFundsUseCase mockGetFunds;
   late MockSubscribeToFundUseCase mockSubscribeToFund;
 
+  setUpAll(() {
+    registerFallbackValue(
+      const Fund(id: 0, name: '', minAmount: 0, category: 'FPV'),
+    );
+  });
+
   setUp(() {
     mockGetFunds = MockGetFundsUseCase();
     mockSubscribeToFund = MockSubscribeToFundUseCase();
@@ -78,6 +84,7 @@ void main() {
     build: () {
       when(() => mockSubscribeToFund(
             fund: any(named: 'fund'),
+            amount: any(named: 'amount'),
             currentBalance: any(named: 'currentBalance'),
             notificationMethod: any(named: 'notificationMethod'),
           )).thenAnswer((_) async => const Right(425000));
@@ -85,6 +92,7 @@ void main() {
     },
     act: (bloc) => bloc.add(const SubscribeToFund(
       fund: Fund(id: 1, name: 'FPV_BTG_PACTUAL_RECAUDADORA', minAmount: 75000, category: 'FPV'),
+      amount: 75000,
       currentBalance: 500000,
       notificationMethod: 'EMAIL',
     )),
@@ -102,6 +110,7 @@ void main() {
     build: () {
       when(() => mockSubscribeToFund(
             fund: any(named: 'fund'),
+            amount: any(named: 'amount'),
             currentBalance: any(named: 'currentBalance'),
             notificationMethod: any(named: 'notificationMethod'),
           )).thenAnswer((_) async => const Left(InsufficientBalanceFailure()));
@@ -109,6 +118,7 @@ void main() {
     },
     act: (bloc) => bloc.add(const SubscribeToFund(
       fund: Fund(id: 4, name: 'FDO-ACCIONES', minAmount: 250000, category: 'FIC'),
+      amount: 250000,
       currentBalance: 100000,
       notificationMethod: 'SMS',
     )),

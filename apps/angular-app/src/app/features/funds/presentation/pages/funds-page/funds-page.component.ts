@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, effect } from '@angular/core';
 import { FundsStore } from '../../state/funds.store';
 import { BalanceStore } from '../../../../balance/presentation/state/balance.store';
 import { Fund } from '../../../domain/entities/fund.entity';
@@ -25,6 +25,20 @@ export class FundsPageComponent implements OnInit {
   readonly fundsStore = inject(FundsStore);
   readonly balanceStore = inject(BalanceStore);
   readonly selectedFund = signal<Fund | null>(null);
+  readonly toastMessage = signal<string | null>(null);
+  readonly toastType = signal<'success' | 'error'>('success');
+
+  private toastTimer: ReturnType<typeof setTimeout> | null = null;
+
+  constructor() {
+    effect(() => {
+      const success = this.fundsStore.subscribeSuccess();
+      if (success) {
+        this.showToast(success, 'success');
+        this.fundsStore.clearSubscribeSuccess();
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.fundsStore.loadFunds();
@@ -37,5 +51,20 @@ export class FundsPageComponent implements OnInit {
   closeSubscribe(): void {
     this.selectedFund.set(null);
     this.fundsStore.loadFunds();
+  }
+
+  showToast(message: string, type: 'success' | 'error'): void {
+    if (this.toastTimer) clearTimeout(this.toastTimer);
+    this.toastMessage.set(message);
+    this.toastType.set(type);
+    this.toastTimer = setTimeout(() => this.dismissToast(), 4000);
+  }
+
+  dismissToast(): void {
+    this.toastMessage.set(null);
+    if (this.toastTimer) {
+      clearTimeout(this.toastTimer);
+      this.toastTimer = null;
+    }
   }
 }

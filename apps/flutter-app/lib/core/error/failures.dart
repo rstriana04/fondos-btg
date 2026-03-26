@@ -25,6 +25,12 @@ final class AlreadySubscribedFailure extends Failure {
   ]);
 }
 
+final class BelowMinimumAmountFailure extends Failure {
+  const BelowMinimumAmountFailure([
+    super.message = 'El monto ingresado es menor al monto minimo requerido',
+  ]);
+}
+
 final class NotFoundFailure extends Failure {
   const NotFoundFailure([super.message = 'Recurso no encontrado']);
 }

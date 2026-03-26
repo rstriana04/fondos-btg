@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal, effect } from '@angular/core';
 import { PortfolioStore } from '../../state/portfolio.store';
 import { Subscription } from '../../../domain/entities/subscription.entity';
 import { PortfolioSummaryComponent } from '../../components/portfolio-summary/portfolio-summary.component';
@@ -28,6 +28,27 @@ import { FriendlyDatePipe } from '../../../../../core/utils/date.pipe';
 })
 export class PortfolioPageComponent implements OnInit {
   readonly store = inject(PortfolioStore);
+  readonly toastMessage = signal<string | null>(null);
+  readonly toastType = signal<'success' | 'error'>('success');
+
+  private toastTimer: ReturnType<typeof setTimeout> | null = null;
+
+  constructor() {
+    effect(() => {
+      const success = this.store.cancelSuccess();
+      if (success) {
+        this.showToast(success, 'success');
+        this.store.clearCancelSuccess();
+      }
+    });
+
+    effect(() => {
+      const error = this.store.error();
+      if (error && !this.store.loading()) {
+        this.showToast(error, 'error');
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.store.loadSubscriptions();
@@ -35,5 +56,20 @@ export class PortfolioPageComponent implements OnInit {
 
   onCancel(subscription: Subscription): void {
     this.store.cancelSubscription(subscription);
+  }
+
+  showToast(message: string, type: 'success' | 'error'): void {
+    if (this.toastTimer) clearTimeout(this.toastTimer);
+    this.toastMessage.set(message);
+    this.toastType.set(type);
+    this.toastTimer = setTimeout(() => this.dismissToast(), 4000);
+  }
+
+  dismissToast(): void {
+    this.toastMessage.set(null);
+    if (this.toastTimer) {
+      clearTimeout(this.toastTimer);
+      this.toastTimer = null;
+    }
   }
 }
