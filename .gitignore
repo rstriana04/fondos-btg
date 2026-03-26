@@ -1,6 +1,9 @@
 # Claude Code local config
 CLAUDE.md
 
+# Documentation (local only)
+docs/
+
 # Dependencies
 node_modules/
 .npm
