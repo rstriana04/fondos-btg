@@ -1,59 +1,63 @@
 import 'package:fondos_btg/features/transactions/domain/entities/transaction.dart';
 
 class TransactionDto {
-  final int id;
-  final int fundId;
-  final String fundName;
-  final String category;
+  final String id;
+  final String fundId;
   final String type;
   final double amount;
-  final String createdAt;
+  final String date;
+  final String? notification;
+  final String? fundName;
+  final String? category;
 
   const TransactionDto({
     required this.id,
     required this.fundId,
-    required this.fundName,
-    required this.category,
     required this.type,
     required this.amount,
-    required this.createdAt,
+    required this.date,
+    this.notification,
+    this.fundName,
+    this.category,
   });
 
   factory TransactionDto.fromJson(Map<String, dynamic> json) {
     return TransactionDto(
-      id: json['id'] as int,
-      fundId: json['fundId'] as int,
-      fundName: json['fundName'] as String,
-      category: json['category'] as String,
+      id: json['id'].toString(),
+      fundId: json['fundId'].toString(),
       type: json['type'] as String,
       amount: (json['amount'] as num).toDouble(),
-      createdAt: json['createdAt'] as String,
+      date: json['date'] as String,
+      notification: json['notification'] as String?,
+      fundName: json['fundName'] as String?,
+      category: json['category'] as String?,
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'fundId': fundId,
-      'fundName': fundName,
-      'category': category,
-      'type': type,
-      'amount': amount,
-      'createdAt': createdAt,
-    };
+  TransactionDto copyWith({String? fundName, String? category}) {
+    return TransactionDto(
+      id: id,
+      fundId: fundId,
+      type: type,
+      amount: amount,
+      date: date,
+      notification: notification,
+      fundName: fundName ?? this.fundName,
+      category: category ?? this.category,
+    );
   }
 
   FundTransaction toEntity() {
     return FundTransaction(
-      id: id,
-      fundId: fundId,
-      fundName: fundName,
-      category: category,
+      id: id.hashCode,
+      fundId: int.tryParse(fundId) ?? 0,
+      fundName: fundName ?? fundId,
+      category: category ?? '',
       type: type == 'subscription'
           ? TransactionType.subscription
           : TransactionType.cancellation,
       amount: amount,
-      createdAt: DateTime.parse(createdAt),
+      createdAt: DateTime.tryParse(date) ?? DateTime.now(),
     );
   }
 }

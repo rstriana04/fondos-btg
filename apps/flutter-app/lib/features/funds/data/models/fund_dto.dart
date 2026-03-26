@@ -14,8 +14,9 @@ class FundDto {
   });
 
   factory FundDto.fromJson(Map<String, dynamic> json) {
+    final rawId = json['id'];
     return FundDto(
-      id: json['id'] as int,
+      id: rawId is int ? rawId : int.parse(rawId.toString()),
       name: json['name'] as String,
       minAmount: (json['minAmount'] as num).toDouble(),
       category: json['category'] as String,

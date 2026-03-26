@@ -15,11 +15,22 @@ class BalanceRemoteDatasourceImpl implements BalanceRemoteDatasource {
   @override
   Future<BalanceInfo> getBalance() async {
     try {
-      final response = await _apiClient.get('/balance');
+      final response = await _apiClient.get('/user');
       final data = response.data as Map<String, dynamic>;
+      final balance = (data['balance'] as num).toDouble();
+      final subscribedFunds = data['subscribedFunds'] as List<dynamic>? ?? [];
+      final investedAmount = subscribedFunds.fold<double>(
+        0,
+        (sum, item) {
+          if (item is Map<String, dynamic>) {
+            return sum + (item['amount'] as num? ?? 0).toDouble();
+          }
+          return sum;
+        },
+      );
       return BalanceInfo(
-        balance: (data['balance'] as num).toDouble(),
-        investedAmount: (data['investedAmount'] as num).toDouble(),
+        balance: balance,
+        investedAmount: investedAmount,
       );
     } catch (e) {
       if (e is ServerException || e is NotFoundException) rethrow;

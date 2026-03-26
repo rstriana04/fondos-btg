@@ -3,11 +3,7 @@ import 'package:fondos_btg/core/network/api_client.dart';
 import 'package:fondos_btg/features/funds/data/models/fund_dto.dart';
 
 abstract class FundRemoteDatasource {
-  /// Fetches all available funds from the API.
   Future<List<FundDto>> getFunds();
-
-  /// Subscribes a user to a fund.
-  /// Returns the updated balance.
   Future<double> subscribeToFund({
     required int fundId,
     required double amount,
@@ -41,16 +37,32 @@ class FundRemoteDatasourceImpl implements FundRemoteDatasource {
     required String notificationMethod,
   }) async {
     try {
-      final response = await _apiClient.post(
-        '/subscriptions',
-        data: {
-          'fundId': fundId,
-          'amount': amount,
-          'notificationMethod': notificationMethod,
-        },
-      );
-      final data = response.data as Map<String, dynamic>;
-      return (data['newBalance'] as num).toDouble();
+      // 1. Get current user data
+      final userResponse = await _apiClient.get('/user');
+      final userData = userResponse.data as Map<String, dynamic>;
+      final currentBalance = (userData['balance'] as num).toDouble();
+      final subscribedFunds =
+          List<String>.from(userData['subscribedFunds'] as List? ?? []);
+
+      final newBalance = currentBalance - amount;
+
+      // 2. Record transaction
+      await _apiClient.post('/transactions', data: {
+        'type': 'subscription',
+        'fundId': fundId.toString(),
+        'amount': amount,
+        'notification': notificationMethod,
+        'date': DateTime.now().toUtc().toIso8601String(),
+      });
+
+      // 3. Update user balance and subscribed funds
+      subscribedFunds.add(fundId.toString());
+      await _apiClient.patch('/user', data: {
+        'balance': newBalance,
+        'subscribedFunds': subscribedFunds,
+      });
+
+      return newBalance;
     } catch (e) {
       if (e is ServerException ||
           e is NotFoundException ||

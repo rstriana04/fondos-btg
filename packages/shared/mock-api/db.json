@@ -1,16 +1,126 @@
 {
   "funds": [
-    { "id": "1", "name": "FPV_BTG_PACTUAL_RECAUDADORA", "minAmount": 75000, "category": "FPV" },
-    { "id": "2", "name": "FPV_BTG_PACTUAL_ECOPETROL", "minAmount": 125000, "category": "FPV" },
-    { "id": "3", "name": "DEUDAPRIVADA", "minAmount": 50000, "category": "FIC" },
-    { "id": "4", "name": "FDO-ACCIONES", "minAmount": 250000, "category": "FIC" },
-    { "id": "5", "name": "FPV_BTG_PACTUAL_DINAMICA", "minAmount": 100000, "category": "FPV" }
+    {
+      "id": "1",
+      "name": "FPV_BTG_PACTUAL_RECAUDADORA",
+      "minAmount": 75000,
+      "category": "FPV"
+    },
+    {
+      "id": "2",
+      "name": "FPV_BTG_PACTUAL_ECOPETROL",
+      "minAmount": 125000,
+      "category": "FPV"
+    },
+    {
+      "id": "3",
+      "name": "DEUDAPRIVADA",
+      "minAmount": 50000,
+      "category": "FIC"
+    },
+    {
+      "id": "4",
+      "name": "FDO-ACCIONES",
+      "minAmount": 250000,
+      "category": "FIC"
+    },
+    {
+      "id": "5",
+      "name": "FPV_BTG_PACTUAL_DINAMICA",
+      "minAmount": 100000,
+      "category": "FPV"
+    }
   ],
   "user": {
     "id": "1",
     "name": "Usuario Demo",
-    "balance": 500000,
-    "subscribedFunds": []
+    "balance": 300000,
+    "subscribedFunds": [
+      "1",
+      "2"
+    ]
   },
-  "transactions": []
+  "transactions": [
+    {
+      "type": "subscription",
+      "fundId": "1",
+      "amount": 75000,
+      "notification": "EMAIL",
+      "date": "2026-03-26T08:28:52.991Z",
+      "id": "89n0raVwYDE"
+    },
+    {
+      "type": "subscription",
+      "fundId": "3",
+      "amount": 50000,
+      "notification": "SMS",
+      "date": "2026-03-26T08:28:59.955Z",
+      "id": "lisiZRaiNvo"
+    },
+    {
+      "type": "subscription",
+      "fundId": "4",
+      "amount": 250000,
+      "notification": "SMS",
+      "date": "2026-03-26T08:29:03.419Z",
+      "id": "tXdVZJi0t0w"
+    },
+    {
+      "type": "subscription",
+      "fundId": "5",
+      "amount": 100000,
+      "notification": "EMAIL",
+      "date": "2026-03-26T08:29:35.529Z",
+      "id": "Vlsjs9c49Sc"
+    },
+    {
+      "type": "cancellation",
+      "fundId": "1",
+      "amount": 75000,
+      "notification": "EMAIL",
+      "date": "2026-03-26T08:30:34.134Z",
+      "id": "7gTRRWMoBMM"
+    },
+    {
+      "type": "cancellation",
+      "fundId": "3",
+      "amount": 50000,
+      "notification": "SMS",
+      "date": "2026-03-26T08:30:35.854Z",
+      "id": "j7fLlbTQVVU"
+    },
+    {
+      "type": "cancellation",
+      "fundId": "4",
+      "amount": 250000,
+      "notification": "",
+      "date": "2026-03-26T08:43:32.173Z",
+      "id": "2nDQrg_HapI"
+    },
+    {
+      "type": "cancellation",
+      "fundId": "5",
+      "amount": 100000,
+      "notification": "",
+      "date": "2026-03-26T08:43:35.547Z",
+      "id": "Y5Iw5_EpvYM"
+    },
+    {
+      "type": "subscription",
+      "fundId": "1",
+      "amount": 75000,
+      "notification": "email",
+      "date": "2026-03-26T08:43:48.559Z",
+      "id": "vLJjd_HprVQ"
+    },
+    {
+      "type": "subscription",
+      "fundId": "2",
+      "amount": 125000,
+      "notification": "sms",
+      "date": "2026-03-26T08:44:09.162Z",
+      "id": "joiiFJvf4Tw"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

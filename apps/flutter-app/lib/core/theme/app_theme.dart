@@ -28,7 +28,7 @@ abstract final class AppTheme {
           type: BottomNavigationBarType.fixed,
           elevation: 8,
         ),
-        cardTheme: CardTheme(
+        cardTheme: CardThemeData(
           color: AppColors.white,
           elevation: 0,
           shape: RoundedRectangleBorder(
