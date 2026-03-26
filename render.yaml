@@ -1,0 +1,71 @@
+services:
+  # ──────────────────────────────────────────────
+  # Mock API — json-server (Docker web service)
+  # ──────────────────────────────────────────────
+  - type: web
+    name: fondos-btg-api
+    runtime: docker
+    region: oregon
+    plan: free
+    rootDir: packages/shared/mock-api
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /funds
+    autoDeploy: yes
+    buildFilter:
+      paths:
+        - packages/shared/mock-api/**
+
+  # ──────────────────────────────────────────────
+  # Angular App — static site (CDN, no spin-down)
+  # ──────────────────────────────────────────────
+  - type: web
+    name: fondos-btg-angular
+    runtime: static
+    region: oregon
+    plan: free
+    rootDir: apps/angular-app
+    buildCommand: >-
+      sed -i "s|http://localhost:3000|$API_URL|g" src/app/core/http/api-client.service.ts
+      && npm install
+      && npx ng build --configuration=production
+    staticPublishPath: dist/angular-app/browser
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    headers:
+      - path: "/**/*.js"
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: "/**/*.css"
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+    autoDeploy: yes
+    buildFilter:
+      paths:
+        - apps/angular-app/**
+    envVars:
+      - key: API_URL
+        value: https://fondos-btg-api.onrender.com
+      - key: NODE_VERSION
+        value: "18"
+
+  # ──────────────────────────────────────────────
+  # Flutter Web App — Docker web service
+  # ──────────────────────────────────────────────
+  - type: web
+    name: fondos-btg-flutter
+    runtime: docker
+    region: oregon
+    plan: free
+    rootDir: apps/flutter-app
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    autoDeploy: yes
+    buildFilter:
+      paths:
+        - apps/flutter-app/**
+    envVars:
+      - key: API_URL
+        value: https://fondos-btg-api.onrender.com

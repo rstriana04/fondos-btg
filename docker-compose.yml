@@ -1,0 +1,42 @@
+services:
+  mock-api:
+    image: node:18-alpine
+    working_dir: /app
+    volumes:
+      - ./packages/shared/mock-api:/app
+      - mock-api-modules:/app/node_modules
+    ports:
+      - "3000:3000"
+    command: sh -c "npm install && npx json-server db.json --port 3000 --host 0.0.0.0"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/funds"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  angular-app:
+    build:
+      context: ./apps/angular-app
+      dockerfile: Dockerfile
+      args:
+        API_URL: http://localhost:3000
+    ports:
+      - "4200:80"
+    depends_on:
+      mock-api:
+        condition: service_healthy
+
+  flutter-app:
+    build:
+      context: ./apps/flutter-app
+      dockerfile: Dockerfile
+      args:
+        API_URL: http://localhost:3000
+    ports:
+      - "8080:80"
+    depends_on:
+      mock-api:
+        condition: service_healthy
+
+volumes:
+  mock-api-modules:
