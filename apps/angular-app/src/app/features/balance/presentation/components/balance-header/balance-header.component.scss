@@ -1,0 +1,91 @@
+@use 'styles/variables' as *;
+@use 'styles/mixins' as *;
+
+// Mobile header
+.mobile-header {
+  background: $navy;
+  padding: 20px 20px 24px;
+
+  @include desktop {
+    display: none;
+  }
+}
+
+.mobile-header-content {
+  max-width: 600px;
+}
+
+.mobile-title {
+  color: $bg-white;
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.mobile-balance {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.balance-label {
+  color: $balance-label;
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+.balance-value {
+  color: $bg-white;
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+// Desktop top bar
+.desktop-topbar {
+  display: none;
+
+  @include desktop {
+    display: block;
+    padding: 24px 32px;
+  }
+}
+
+.topbar-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.page-title {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: $text-primary;
+}
+
+.balance-card {
+  @include card;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 20px;
+}
+
+.balance-card-label {
+  font-size: 0.75rem;
+  color: $text-secondary;
+  font-weight: 500;
+}
+
+.balance-card-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: $navy;
+  letter-spacing: -0.02em;
+}

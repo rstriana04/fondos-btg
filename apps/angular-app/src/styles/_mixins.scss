@@ -1,0 +1,226 @@
+@use 'variables' as *;
+
+// Responsive
+@mixin desktop {
+  @media (min-width: $breakpoint-desktop) {
+    @content;
+  }
+}
+
+@mixin mobile-only {
+  @media (max-width: #{$breakpoint-desktop - 1}) {
+    @content;
+  }
+}
+
+// Card
+@mixin card($radius: $card-radius) {
+  background: $bg-white;
+  border-radius: $radius;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  border: 1px solid $divider;
+}
+
+@mixin card-hover {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    border-color: $card-hover-border;
+    box-shadow: 0 4px 12px rgba(44, 116, 179, 0.1);
+  }
+}
+
+// Typography
+@mixin heading-lg {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: $text-primary;
+}
+
+@mixin heading-md {
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: $text-primary;
+}
+
+@mixin heading-sm {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: $text-primary;
+}
+
+@mixin body-text {
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: $text-secondary;
+}
+
+@mixin small-text {
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1.4;
+  color: $text-muted;
+}
+
+// Buttons
+@mixin btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  background: $blue-accent;
+  color: $bg-white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background: $blue-mid;
+  }
+
+  &:disabled {
+    background: $text-muted;
+    cursor: not-allowed;
+  }
+}
+
+@mixin btn-outline($color: $cancel-border, $text-color: $cancel-text, $hover-bg: $cancel-hover-bg) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  background: transparent;
+  color: $text-color;
+  border: 1.5px solid $color;
+  border-radius: 8px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background: $hover-bg;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// Badge
+@mixin category-badge($bg, $color) {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  background: $bg;
+  color: $color;
+  border-radius: 20px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+// Input
+@mixin form-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1.5px solid $divider;
+  border-radius: 8px;
+  font-size: 0.9375rem;
+  color: $text-primary;
+  background: $bg-white;
+  outline: none;
+  transition: border-color 0.2s ease;
+
+  &:focus {
+    border-color: $blue-accent;
+  }
+
+  &.error {
+    border-color: $error;
+  }
+}
+
+// Overlay
+@mixin overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: $overlay;
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  @include desktop {
+    align-items: center;
+  }
+}
+
+// Scrollbar
+@mixin custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $divider;
+    border-radius: 3px;
+  }
+}
+
+// Grid
+@mixin fund-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+
+  @include desktop {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+  }
+}
+
+// Table
+@mixin table-base {
+  width: 100%;
+  border-collapse: collapse;
+
+  th {
+    background: $table-header-bg;
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: $text-secondary;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid $divider;
+  }
+
+  td {
+    padding: 14px 16px;
+    font-size: 0.875rem;
+    color: $text-primary;
+    border-bottom: 1px solid $divider;
+  }
+
+  tr:hover td {
+    background: $bg-surface;
+  }
+}

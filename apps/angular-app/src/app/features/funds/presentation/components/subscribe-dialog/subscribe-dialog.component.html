@@ -1,0 +1,83 @@
+<div class="overlay" (click)="onOverlayClick($event)">
+  <div class="dialog">
+    <!-- Handle bar (mobile) -->
+    <div class="handle-bar-wrapper">
+      <div class="handle-bar"></div>
+    </div>
+
+    <!-- Close button (desktop) -->
+    <button class="close-btn" (click)="onClose()" aria-label="Cerrar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+
+    <div class="dialog-content">
+      <h2 class="dialog-title">Suscribirse al fondo</h2>
+      <p class="fund-info">
+        {{ fund().name | fundName }}
+        <span class="min-label">Min. {{ fund().minAmount | copCurrency }}</span>
+      </p>
+
+      <!-- Error message -->
+      @if (subscribeError()) {
+        <app-error-message [message]="subscribeError()!" />
+      }
+
+      <!-- Amount -->
+      <div class="form-group">
+        <label class="form-label">Monto a invertir</label>
+        <input
+          type="text"
+          class="form-input"
+          [class.error]="subscribeError()"
+          [value]="fund().minAmount | copCurrency"
+          readonly
+        />
+      </div>
+
+      <!-- Notification type -->
+      <div class="form-group">
+        <label class="form-label">Medio de notificacion</label>
+        <div class="notification-options">
+          <button
+            class="notification-card"
+            [class.selected]="notification() === 'EMAIL'"
+            (click)="selectNotification('EMAIL')"
+          >
+            <svg class="notif-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <path d="M22 4l-10 8L2 4"/>
+            </svg>
+            <span>Email</span>
+          </button>
+          <button
+            class="notification-card"
+            [class.selected]="notification() === 'SMS'"
+            (click)="selectNotification('SMS')"
+          >
+            <svg class="notif-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+            </svg>
+            <span>SMS</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Submit button -->
+      <button
+        class="submit-btn"
+        [class.disabled]="subscribing()"
+        [disabled]="subscribing()"
+        (click)="onSubmit()"
+      >
+        @if (subscribing()) {
+          Procesando...
+        } @else {
+          Suscribir
+        }
+      </button>
+    </div>
+  </div>
+</div>

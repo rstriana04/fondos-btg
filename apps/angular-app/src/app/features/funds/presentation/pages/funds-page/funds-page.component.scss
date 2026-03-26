@@ -1,0 +1,63 @@
+@use 'styles/variables' as *;
+@use 'styles/mixins' as *;
+
+.stats-row {
+  display: none;
+
+  @include desktop {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+}
+
+.stat-card {
+  @include card;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stat-label {
+  font-size: 0.8125rem;
+  color: $text-secondary;
+  font-weight: 500;
+}
+
+.stat-value {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: $navy;
+
+  &.invested {
+    color: $success-dark;
+  }
+}
+
+.page-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.section-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: $text-primary;
+
+  @include mobile-only {
+    margin-top: 8px;
+  }
+}
+
+.funds-grid {
+  @include fund-grid;
+}
+
+.empty-text {
+  @include body-text;
+  text-align: center;
+  padding: 32px 0;
+}

@@ -1,0 +1,72 @@
+<div class="portfolio-page">
+  <h2 class="page-title">Mis fondos</h2>
+
+  <app-portfolio-summary />
+
+  @if (store.loading()) {
+    <app-loading-spinner />
+  } @else if (store.error()) {
+    <app-error-message [message]="store.error()!" />
+  } @else {
+    <!-- Mobile: Cards -->
+    <div class="subscriptions-cards">
+      @for (sub of store.subscriptions(); track sub.fundId) {
+        <app-subscription-card
+          [subscription]="sub"
+          [cancelling]="store.cancelling() === sub.fundId"
+          (cancel)="onCancel($event)"
+        />
+      } @empty {
+        <div class="empty-state">
+          <p class="empty-text">Aun no tienes fondos suscritos.</p>
+          <p class="empty-subtext">Explora los fondos disponibles y comienza a invertir.</p>
+        </div>
+      }
+    </div>
+
+    <!-- Desktop: Table -->
+    <div class="subscriptions-table-wrapper">
+      @if (store.subscriptions().length > 0) {
+        <table class="subscriptions-table">
+          <thead>
+            <tr>
+              <th>Fondo</th>
+              <th>Categoria</th>
+              <th>Fecha</th>
+              <th>Monto</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (sub of store.subscriptions(); track sub.fundId) {
+              <tr>
+                <td class="fund-name-cell">{{ sub.fundName | fundName }}</td>
+                <td><app-fund-category-badge [category]="sub.category" /></td>
+                <td>{{ sub.date | friendlyDate }}</td>
+                <td class="amount-cell">{{ sub.amount | copCurrency }}</td>
+                <td>
+                  <button
+                    class="cancel-btn"
+                    [disabled]="store.cancelling() === sub.fundId"
+                    (click)="onCancel(sub)"
+                  >
+                    @if (store.cancelling() === sub.fundId) {
+                      Cancelando...
+                    } @else {
+                      Cancelar
+                    }
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      } @else {
+        <div class="empty-state">
+          <p class="empty-text">Aun no tienes fondos suscritos.</p>
+          <p class="empty-subtext">Explora los fondos disponibles y comienza a invertir.</p>
+        </div>
+      }
+    </div>
+  }
+</div>

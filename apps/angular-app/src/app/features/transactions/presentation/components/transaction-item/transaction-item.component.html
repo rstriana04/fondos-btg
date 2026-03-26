@@ -1,0 +1,27 @@
+<div class="transaction-item">
+  <div class="tx-icon" [class.subscription]="transaction().type === 'subscription'" [class.cancellation]="transaction().type === 'cancellation'">
+    @if (transaction().type === 'subscription') {
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="12" y1="19" x2="12" y2="5"/>
+        <polyline points="5 12 12 5 19 12"/>
+      </svg>
+    } @else {
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="12" y1="5" x2="12" y2="19"/>
+        <polyline points="19 12 12 19 5 12"/>
+      </svg>
+    }
+  </div>
+
+  <div class="tx-info">
+    <span class="tx-fund-name">{{ transaction().fundName | fundName }}</span>
+    <span class="tx-type">
+      {{ transaction().type === 'subscription' ? 'Suscripcion' : 'Cancelacion' }}
+      &middot; {{ transaction().date | friendlyDate }}
+    </span>
+  </div>
+
+  <div class="tx-amount" [class.subscription]="transaction().type === 'subscription'" [class.cancellation]="transaction().type === 'cancellation'">
+    {{ transaction().type === 'subscription' ? '-' : '+' }}{{ transaction().amount | copCurrency }}
+  </div>
+</div>

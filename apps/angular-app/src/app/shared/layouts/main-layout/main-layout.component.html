@@ -1,0 +1,16 @@
+<div class="layout">
+  <!-- Desktop sidebar -->
+  <app-sidebar class="layout-sidebar" />
+
+  <div class="layout-main">
+    <!-- Mobile header -->
+    <app-balance-header class="layout-header" />
+
+    <div class="layout-content">
+      <router-outlet />
+    </div>
+  </div>
+
+  <!-- Mobile bottom nav -->
+  <app-bottom-nav class="layout-bottom-nav" />
+</div>

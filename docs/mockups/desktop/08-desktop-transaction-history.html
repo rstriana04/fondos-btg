@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>FondosBTG Desktop - Transaction History</title>
+<style>
+body{margin:0;padding:0;background:#F5F7FA;font-family:-apple-system,system-ui,sans-serif}
+.app{display:flex;min-height:100vh}
+.sidebar{width:240px;background:#0A2647;padding:0;display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0}
+.sidebar-logo{padding:28px 24px 8px;font-size:20px;font-weight:500;color:#FFFFFF}
+.sidebar-subtitle{padding:0 24px 28px;font-size:12px;color:#85B7EB}
+.sidebar-nav{flex:1;padding:0 12px}
+.nav-link{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:10px;font-size:14px;color:#85B7EB;cursor:pointer;margin-bottom:4px}
+.nav-link.active{background:rgba(255,255,255,0.12);color:#FFFFFF;font-weight:500}
+.sidebar-footer{padding:20px 24px;border-top:1px solid rgba(255,255,255,0.08);font-size:11px;color:#85B7EB}
+.main{margin-left:240px;flex:1}
+.topbar{background:#FFFFFF;border-bottom:0.5px solid #E8ECF1;padding:20px 40px;display:flex;justify-content:space-between;align-items:center}
+.topbar h1{font-size:22px;font-weight:500;color:#0A2647;margin:0}
+.balance-pill{display:flex;align-items:center;gap:16px;background:#0A2647;border-radius:12px;padding:14px 24px}
+.balance-pill .bl{font-size:12px;color:#85B7EB;margin:0}
+.balance-pill .bv{font-size:22px;font-weight:500;color:#FFFFFF;margin:2px 0 0}
+.content{padding:32px 40px}
+.tx-table{width:100%;border-collapse:separate;border-spacing:0;background:#FFFFFF;border-radius:14px;border:0.5px solid #E8ECF1;overflow:hidden}
+.tx-table thead th{text-align:left;padding:14px 20px;font-size:12px;font-weight:500;color:#888780;border-bottom:0.5px solid #E8ECF1;background:#FAFBFC}
+.tx-table thead th:last-child{text-align:right}
+.tx-table tbody td{padding:16px 20px;font-size:14px;color:#0A2647;border-bottom:0.5px solid #E8ECF1;vertical-align:middle}
+.tx-table tbody tr:last-child td{border-bottom:none}
+.tx-table tbody tr:hover{background:#F5F7FA}
+.tx-type-cell{display:flex;align-items:center;gap:10px}
+.tx-icon{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tx-icon-sub{background:#FCEBEB}
+.tx-icon-can{background:#E1F5EE}
+.tx-type-label{font-weight:500}
+.tx-type-sub{color:#A32D2D}
+.tx-type-can{color:#085041}
+.fn{font-weight:500}
+.date-cell{font-size:13px;color:#888780}
+.amount-cell{font-weight:500;text-align:right}
+.amount-sub{color:#A32D2D}
+.amount-can{color:#085041}
+.badge{display:inline-block;font-size:11px;font-weight:500;padding:3px 10px;border-radius:6px}
+.badge-fpv{background:#E6F1FB;color:#0C447C}
+.badge-fic{background:#EEEDFE;color:#3C3489}
+.section-title{font-size:16px;font-weight:500;color:#444441;margin:0 0 20px;display:flex;align-items:center;gap:8px}
+.count-badge{font-size:12px;font-weight:400;color:#888780;background:#E8ECF1;padding:2px 10px;border-radius:10px}
+.notification-cell{display:flex;align-items:center;gap:6px;font-size:13px;color:#888780}
+</style>
+</head>
+<body>
+<!--
+  MOCKUP: Desktop Transaction History
+  LAYOUT: Sidebar + topbar + full-width table
+  
+  DESIGN NOTES — DESKTOP TRANSACTION TABLE:
+  - Same sidebar with "Historial" nav link active
+  - Transactions as a proper data table (not cards):
+    - Columns: Tipo | Fondo | Categoría | Fecha | Notificación | Monto
+    - Type column has circular icon + label:
+      - Subscription: red bg icon (#FCEBEB), arrow up, label "Suscripción" in #A32D2D
+      - Cancellation: green bg icon (#E1F5EE), arrow down, label "Cancelación" in #085041
+    - Amount column is right-aligned:
+      - Subscription: "-$XX.XXX" in #A32D2D
+      - Cancellation: "+$XX.XXX" in #085041
+    - Notification shows method used (Email/SMS) with small icon
+    - Table header: #FAFBFC bg, 12px, #888780
+    - Row hover: #F5F7FA
+  - Section title includes count badge
+-->
+<div class="app">
+  <aside class="sidebar">
+    <div class="sidebar-logo">FondosBTG</div>
+    <div class="sidebar-subtitle">BTG Pactual Colombia</div>
+    <nav class="sidebar-nav">
+      <a class="nav-link" href="#">
+        <svg width="20" height="20" viewBox="0 0 20 20"><rect x="2" y="10" width="4" height="8" rx="1" fill="currentColor"/><rect x="8" y="6" width="4" height="12" rx="1" fill="currentColor"/><rect x="14" y="2" width="4" height="16" rx="1" fill="currentColor"/></svg>
+        Fondos disponibles
+      </a>
+      <a class="nav-link" href="#">
+        <svg width="20" height="20" viewBox="0 0 20 20"><rect x="2" y="3" width="16" height="4" rx="1" fill="currentColor"/><rect x="2" y="9" width="16" height="4" rx="1" fill="currentColor"/><rect x="2" y="15" width="10" height="4" rx="1" fill="currentColor"/></svg>
+        Mis fondos
+      </a>
+      <a class="nav-link active" href="#">
+        <svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M10 6v4l3 2" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+        Historial
+      </a>
+    </nav>
+    <div class="sidebar-footer">© 2026 FondosBTG</div>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <h1>Historial de transacciones</h1>
+      <div class="balance-pill">
+        <div>
+          <div class="bl">Saldo disponible</div>
+          <div class="bv">$300.000</div>
+        </div>
+      </div>
+    </div>
+    <div class="content">
+      <div class="section-title">Todas las transacciones <span class="count-badge">4</span></div>
+      <table class="tx-table">
+        <thead>
+          <tr>
+            <th>Tipo</th>
+            <th>Fondo</th>
+            <th>Categoría</th>
+            <th>Fecha</th>
+            <th>Notificación</th>
+            <th style="text-align:right">Monto</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="tx-type-cell">
+                <div class="tx-icon tx-icon-sub">
+                  <svg width="14" height="14" viewBox="0 0 16 16"><path d="M8 3v10M4 7l4-4 4 4" stroke="#A32D2D" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+                </div>
+                <span class="tx-type-label tx-type-sub">Suscripción</span>
+              </div>
+            </td>
+            <td class="fn">FPV BTG Pactual Ecopetrol</td>
+            <td><span class="badge badge-fpv">FPV</span></td>
+            <td class="date-cell">25 mar 2026, 10:32 a.m.</td>
+            <td>
+              <div class="notification-cell">
+                <svg width="14" height="14" viewBox="0 0 20 20"><rect x="2" y="4" width="16" height="12" rx="2" fill="none" stroke="#888780" stroke-width="1.2"/><path d="M2 6l8 5 8-5" fill="none" stroke="#888780" stroke-width="1.2"/></svg>
+                Email
+              </div>
+            </td>
+            <td class="amount-cell amount-sub">-$125.000</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="tx-type-cell">
+                <div class="tx-icon tx-icon-sub">
+                  <svg width="14" height="14" viewBox="0 0 16 16"><path d="M8 3v10M4 7l4-4 4 4" stroke="#A32D2D" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+                </div>
+                <span class="tx-type-label tx-type-sub">Suscripción</span>
+              </div>
+            </td>
+            <td class="fn">FPV BTG Pactual Recaudadora</td>
+            <td><span class="badge badge-fpv">FPV</span></td>
+            <td class="date-cell">25 mar 2026, 10:15 a.m.</td>
+            <td>
+              <div class="notification-cell">
+                <svg width="14" height="14" viewBox="0 0 20 20"><rect x="5" y="1" width="10" height="18" rx="2" fill="none" stroke="#888780" stroke-width="1.2"/><circle cx="10" cy="16" r="1" fill="#888780"/></svg>
+                SMS
+              </div>
+            </td>
+            <td class="amount-cell amount-sub">-$75.000</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="tx-type-cell">
+                <div class="tx-icon tx-icon-can">
+                  <svg width="14" height="14" viewBox="0 0 16 16"><path d="M8 13V3M4 9l4 4 4-4" stroke="#085041" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+                </div>
+                <span class="tx-type-label tx-type-can">Cancelación</span>
+              </div>
+            </td>
+            <td class="fn">Deuda Privada</td>
+            <td><span class="badge badge-fic">FIC</span></td>
+            <td class="date-cell">24 mar 2026, 3:47 p.m.</td>
+            <td>
+              <div class="notification-cell">—</div>
+            </td>
+            <td class="amount-cell amount-can">+$50.000</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="tx-type-cell">
+                <div class="tx-icon tx-icon-sub">
+                  <svg width="14" height="14" viewBox="0 0 16 16"><path d="M8 3v10M4 7l4-4 4 4" stroke="#A32D2D" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+                </div>
+                <span class="tx-type-label tx-type-sub">Suscripción</span>
+              </div>
+            </td>
+            <td class="fn">Deuda Privada</td>
+            <td><span class="badge badge-fic">FIC</span></td>
+            <td class="date-cell">24 mar 2026, 9:20 a.m.</td>
+            <td>
+              <div class="notification-cell">
+                <svg width="14" height="14" viewBox="0 0 20 20"><rect x="2" y="4" width="16" height="12" rx="2" fill="none" stroke="#888780" stroke-width="1.2"/><path d="M2 6l8 5 8-5" fill="none" stroke="#888780" stroke-width="1.2"/></svg>
+                Email
+              </div>
+            </td>
+            <td class="amount-cell amount-sub">-$50.000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,72 @@
+// Design System Colors
+$navy: #0A2647;
+$blue-dark: #144272;
+$blue-mid: #205295;
+$blue-accent: #2C74B3;
+$success: #1D9E75;
+$error: #E24B4A;
+$warning: #EF9F27;
+$bg-white: #FFFFFF;
+$bg-surface: #F5F7FA;
+$divider: #E8ECF1;
+$fpv-bg: #E6F1FB;
+$fpv-text: #0C447C;
+$fic-bg: #EEEDFE;
+$fic-text: #3C3489;
+$text-primary: #0A2647;
+$text-secondary: #888780;
+$text-muted: #B4B2A9;
+$balance-label: #85B7EB;
+
+// Semantic Colors
+$success-dark: #085041;
+$cancel-border: #E24B4A;
+$cancel-text: #A32D2D;
+$cancel-hover-bg: #FCEBEB;
+$subscription-icon-bg: #FCEBEB;
+$cancellation-icon-bg: #E1F5EE;
+$overlay: rgba(10, 38, 71, 0.6);
+$handle-bar: #D3D1C7;
+$table-header-bg: #FAFBFC;
+$card-hover-border: #B5D4F4;
+
+// Spacing
+$sidebar-width: 240px;
+$bottom-nav-height: 64px;
+$card-radius: 12px;
+
+// Breakpoints
+$breakpoint-desktop: 960px;
+
+// CSS Custom Properties (for runtime usage)
+:root {
+  --navy: #{$navy};
+  --blue-dark: #{$blue-dark};
+  --blue-mid: #{$blue-mid};
+  --blue-accent: #{$blue-accent};
+  --success: #{$success};
+  --error: #{$error};
+  --warning: #{$warning};
+  --bg-white: #{$bg-white};
+  --bg-surface: #{$bg-surface};
+  --divider: #{$divider};
+  --fpv-bg: #{$fpv-bg};
+  --fpv-text: #{$fpv-text};
+  --fic-bg: #{$fic-bg};
+  --fic-text: #{$fic-text};
+  --text-primary: #{$text-primary};
+  --text-secondary: #{$text-secondary};
+  --text-muted: #{$text-muted};
+  --balance-label: #{$balance-label};
+  --success-dark: #{$success-dark};
+  --cancel-border: #{$cancel-border};
+  --cancel-text: #{$cancel-text};
+  --cancel-hover-bg: #{$cancel-hover-bg};
+  --overlay: #{$overlay};
+  --handle-bar: #{$handle-bar};
+  --table-header-bg: #{$table-header-bg};
+  --card-hover-border: #{$card-hover-border};
+  --sidebar-width: #{$sidebar-width};
+  --bottom-nav-height: #{$bottom-nav-height};
+  --card-radius: #{$card-radius};
+}

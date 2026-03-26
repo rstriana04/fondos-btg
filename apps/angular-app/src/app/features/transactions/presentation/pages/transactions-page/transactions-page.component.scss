@@ -1,0 +1,93 @@
+@use 'styles/variables' as *;
+@use 'styles/mixins' as *;
+
+.transactions-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.page-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: $text-primary;
+
+  @include desktop {
+    display: none;
+  }
+}
+
+// Mobile: list
+.transactions-list {
+  @include card;
+  padding: 4px 16px;
+
+  @include desktop {
+    display: none;
+  }
+}
+
+// Desktop: table
+.transactions-table-wrapper {
+  display: none;
+
+  @include desktop {
+    display: block;
+    @include card;
+    overflow: hidden;
+  }
+}
+
+.transactions-table {
+  @include table-base;
+
+  .fund-name-cell {
+    font-weight: 600;
+  }
+
+  .amount-col {
+    text-align: right;
+  }
+
+  .amount-cell {
+    text-align: right;
+    font-weight: 700;
+
+    &.subscription {
+      color: $error;
+    }
+
+    &.cancellation {
+      color: $success;
+    }
+  }
+}
+
+.tx-type-badge {
+  display: inline-flex;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+
+  &.subscription {
+    background: #FCEBEB;
+    color: $cancel-text;
+  }
+
+  &.cancellation {
+    background: #E1F5EE;
+    color: $success-dark;
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 48px 24px;
+}
+
+.empty-text {
+  font-size: 1rem;
+  font-weight: 600;
+  color: $text-primary;
+}

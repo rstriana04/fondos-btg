@@ -1,0 +1,74 @@
+@use 'styles/variables' as *;
+
+.transaction-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid $divider;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.tx-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  &.subscription {
+    background: #FCEBEB;
+    color: $error;
+  }
+
+  &.cancellation {
+    background: #E1F5EE;
+    color: $success;
+  }
+}
+
+.tx-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.tx-fund-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: $text-primary;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tx-type {
+  font-size: 0.75rem;
+  color: $text-muted;
+}
+
+.tx-amount {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  white-space: nowrap;
+
+  &.subscription {
+    color: $error;
+  }
+
+  &.cancellation {
+    color: $success;
+  }
+}

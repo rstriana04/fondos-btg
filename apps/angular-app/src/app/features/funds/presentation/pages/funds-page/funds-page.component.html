@@ -1,0 +1,37 @@
+<!-- Desktop stats row -->
+<div class="stats-row">
+  <div class="stat-card">
+    <span class="stat-label">Saldo disponible</span>
+    <span class="stat-value">{{ balanceStore.balance() | copCurrency }}</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-label">Total invertido</span>
+    <span class="stat-value invested">{{ balanceStore.investedAmount() | copCurrency }}</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-label">Fondos disponibles</span>
+    <span class="stat-value">{{ fundsStore.totalFunds() }}</span>
+  </div>
+</div>
+
+<div class="page-section">
+  <h2 class="section-title">Fondos disponibles</h2>
+
+  @if (fundsStore.loading()) {
+    <app-loading-spinner />
+  } @else if (fundsStore.error()) {
+    <app-error-message [message]="fundsStore.error()!" />
+  } @else {
+    <div class="funds-grid">
+      @for (fund of fundsStore.funds(); track fund.id) {
+        <app-fund-card [fund]="fund" (subscribe)="openSubscribe($event)" />
+      } @empty {
+        <p class="empty-text">No hay fondos disponibles en este momento.</p>
+      }
+    </div>
+  }
+</div>
+
+@if (selectedFund()) {
+  <app-subscribe-dialog [fund]="selectedFund()!" (close)="closeSubscribe()" />
+}

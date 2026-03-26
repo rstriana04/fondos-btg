@@ -1,0 +1,23 @@
+<div class="subscription-card">
+  <div class="card-top">
+    <app-fund-category-badge [category]="subscription().category" />
+    <span class="sub-date">{{ subscription().date | friendlyDate }}</span>
+  </div>
+  <div class="card-body">
+    <h3 class="fund-name">{{ subscription().fundName | fundName }}</h3>
+    <p class="sub-amount">{{ subscription().amount | copCurrency }}</p>
+  </div>
+  <div class="card-actions">
+    <button
+      class="cancel-btn"
+      [disabled]="cancelling()"
+      (click)="onCancel()"
+    >
+      @if (cancelling()) {
+        Cancelando...
+      } @else {
+        Cancelar
+      }
+    </button>
+  </div>
+</div>

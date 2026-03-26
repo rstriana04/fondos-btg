@@ -1,0 +1,47 @@
+@use 'styles/variables' as *;
+@use 'styles/mixins' as *;
+
+.subscription-card {
+  @include card;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sub-date {
+  font-size: 0.75rem;
+  color: $text-muted;
+}
+
+.card-body {
+  flex: 1;
+}
+
+.fund-name {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: $text-primary;
+  margin-bottom: 4px;
+}
+
+.sub-amount {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: $navy;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cancel-btn {
+  @include btn-outline;
+}

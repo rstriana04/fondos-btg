@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=320">
+<title>FondosBTG - Home / Funds List</title>
+<style>
+body{margin:0;padding:40px;background:#E8ECF1;font-family:-apple-system,system-ui,sans-serif;display:flex;justify-content:center}
+.phone{width:320px;min-height:640px;border-radius:28px;border:2px solid #D3D1C7;overflow:hidden;background:#FFFFFF;position:relative}
+.status-bar{background:#0A2647;padding:8px 20px;display:flex;justify-content:space-between;font-size:11px;color:#B5D4F4}
+.header{background:#0A2647;padding:0 20px 20px;color:white}
+.header h2{font-size:18px;font-weight:500;margin:0 0 4px;color:#FFFFFF}
+.header .bal-label{font-size:12px;color:#85B7EB;margin:12px 0 2px}
+.header .bal{font-size:28px;font-weight:500;color:#FFFFFF}
+.body{padding:16px 16px 80px;background:#F5F7FA}
+.section-title{font-size:14px;font-weight:500;color:#444441;margin:0 0 10px}
+.fund-card{background:#FFFFFF;border-radius:12px;padding:14px;margin-bottom:10px;border:0.5px solid #E8ECF1;display:flex;justify-content:space-between;align-items:center}
+.fund-name{font-size:13px;font-weight:500;color:#0A2647;margin:0 0 4px}
+.fund-min{font-size:12px;color:#888780;margin:0}
+.badge{display:inline-block;font-size:10px;font-weight:500;padding:2px 8px;border-radius:6px;margin-bottom:6px}
+.badge-fpv{background:#E6F1FB;color:#0C447C}
+.badge-fic{background:#EEEDFE;color:#3C3489}
+.btn-sub{background:#2C74B3;color:white;border:none;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:500;cursor:pointer}
+.bottom-nav{position:absolute;bottom:0;left:0;right:0;background:#FFFFFF;border-top:0.5px solid #E8ECF1;display:flex;justify-content:space-around;padding:10px 0 18px}
+.nav-item{text-align:center;font-size:10px;color:#888780}
+.nav-item.active{color:#2C74B3}
+</style>
+</head>
+<body>
+<!--
+  MOCKUP: Home Screen - Funds List
+  SCREEN: Main landing page
+  NAVIGATION: Tab "Fondos" (active)
+  
+  DESIGN NOTES:
+  - Navy header (#0A2647) with user balance prominently displayed
+  - Balance label in light blue (#85B7EB), amount in white, 28px bold
+  - Fund cards: white bg, 12px border-radius, 0.5px border #E8ECF1
+  - Each card shows: category badge (FPV=blue, FIC=purple), fund name, minimum amount
+  - "Suscribir" button: #2C74B3, white text, 8px border-radius
+  - Bottom nav: 3 tabs (Fondos, Mis fondos, Historial) with icons
+  - Background surface: #F5F7FA
+-->
+<div class="phone">
+  <div class="status-bar"><span>9:41</span><span>···</span></div>
+  <div class="header">
+    <h2>FondosBTG</h2>
+    <div class="bal-label">Tu saldo disponible</div>
+    <div class="bal">$500.000</div>
+  </div>
+  <div class="body">
+    <div class="section-title">Fondos disponibles</div>
+    <div class="fund-card">
+      <div>
+        <span class="badge badge-fpv">FPV</span>
+        <div class="fund-name">FPV BTG Pactual Recaudadora</div>
+        <div class="fund-min">Min. $75.000</div>
+      </div>
+      <button class="btn-sub">Suscribir</button>
+    </div>
+    <div class="fund-card">
+      <div>
+        <span class="badge badge-fpv">FPV</span>
+        <div class="fund-name">FPV BTG Pactual Ecopetrol</div>
+        <div class="fund-min">Min. $125.000</div>
+      </div>
+      <button class="btn-sub">Suscribir</button>
+    </div>
+    <div class="fund-card">
+      <div>
+        <span class="badge badge-fic">FIC</span>
+        <div class="fund-name">Deuda Privada</div>
+        <div class="fund-min">Min. $50.000</div>
+      </div>
+      <button class="btn-sub">Suscribir</button>
+    </div>
+    <div class="fund-card">
+      <div>
+        <span class="badge badge-fic">FIC</span>
+        <div class="fund-name">FDO-Acciones</div>
+        <div class="fund-min">Min. $250.000</div>
+      </div>
+      <button class="btn-sub">Suscribir</button>
+    </div>
+    <div class="fund-card">
+      <div>
+        <span class="badge badge-fpv">FPV</span>
+        <div class="fund-name">FPV BTG Pactual Dinámica</div>
+        <div class="fund-min">Min. $100.000</div>
+      </div>
+      <button class="btn-sub">Suscribir</button>
+    </div>
+  </div>
+  <div class="bottom-nav">
+    <div class="nav-item active">
+      <svg width="20" height="20" viewBox="0 0 20 20" style="display:block;margin:0 auto 3px"><rect x="2" y="10" width="4" height="8" rx="1" fill="#2C74B3"/><rect x="8" y="6" width="4" height="12" rx="1" fill="#2C74B3"/><rect x="14" y="2" width="4" height="16" rx="1" fill="#2C74B3"/></svg>
+      Fondos
+    </div>
+    <div class="nav-item">
+      <svg width="20" height="20" viewBox="0 0 20 20" style="display:block;margin:0 auto 3px"><rect x="2" y="3" width="16" height="4" rx="1" fill="#B4B2A9"/><rect x="2" y="9" width="16" height="4" rx="1" fill="#B4B2A9"/><rect x="2" y="15" width="10" height="4" rx="1" fill="#B4B2A9"/></svg>
+      Mis fondos
+    </div>
+    <div class="nav-item">
+      <svg width="20" height="20" viewBox="0 0 20 20" style="display:block;margin:0 auto 3px"><circle cx="10" cy="10" r="7" fill="none" stroke="#B4B2A9" stroke-width="1.5"/><path d="M10 6v4l3 2" stroke="#B4B2A9" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+      Historial
+    </div>
+  </div>
+</div>
+</body>
+</html>

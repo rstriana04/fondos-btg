@@ -1,0 +1,76 @@
+@use 'styles/variables' as *;
+@use 'styles/mixins' as *;
+
+.portfolio-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.page-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: $text-primary;
+
+  @include desktop {
+    display: none;
+  }
+}
+
+// Mobile: card list
+.subscriptions-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  @include desktop {
+    display: none;
+  }
+}
+
+// Desktop: table
+.subscriptions-table-wrapper {
+  display: none;
+
+  @include desktop {
+    display: block;
+    @include card;
+    overflow: hidden;
+  }
+}
+
+.subscriptions-table {
+  @include table-base;
+
+  .fund-name-cell {
+    font-weight: 600;
+  }
+
+  .amount-cell {
+    font-weight: 700;
+    color: $navy;
+  }
+}
+
+.cancel-btn {
+  @include btn-outline;
+  padding: 6px 14px;
+  font-size: 0.75rem;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 48px 24px;
+}
+
+.empty-text {
+  font-size: 1rem;
+  font-weight: 600;
+  color: $text-primary;
+  margin-bottom: 8px;
+}
+
+.empty-subtext {
+  font-size: 0.875rem;
+  color: $text-secondary;
+}

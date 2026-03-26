@@ -1,0 +1,186 @@
+@use 'styles/variables' as *;
+@use 'styles/mixins' as *;
+
+.overlay {
+  @include overlay;
+}
+
+.dialog {
+  background: $bg-white;
+  width: 100%;
+  max-height: 90vh;
+  border-radius: 20px 20px 0 0;
+  padding: 12px 24px 32px;
+  position: relative;
+  overflow-y: auto;
+  animation: slideUp 0.3s ease-out;
+
+  @include desktop {
+    width: 440px;
+    max-height: 80vh;
+    border-radius: $card-radius;
+    padding: 32px;
+    animation: fadeIn 0.2s ease-out;
+  }
+}
+
+.handle-bar-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 8px 0 16px;
+
+  @include desktop {
+    display: none;
+  }
+}
+
+.handle-bar {
+  width: 36px;
+  height: 4px;
+  background: $handle-bar;
+  border-radius: 2px;
+}
+
+.close-btn {
+  display: none;
+
+  @include desktop {
+    display: flex;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: $text-secondary;
+    border-radius: 8px;
+    transition: background 0.2s;
+
+    &:hover {
+      background: $bg-surface;
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+.dialog-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dialog-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: $text-primary;
+}
+
+.fund-info {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: $text-primary;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.min-label {
+  font-size: 0.75rem;
+  color: $text-secondary;
+  font-weight: 400;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: $text-primary;
+}
+
+.form-input {
+  @include form-input;
+}
+
+.notification-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.notification-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px;
+  background: $bg-white;
+  border: 1.5px solid $divider;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: $text-secondary;
+
+  &:hover {
+    border-color: $blue-accent;
+  }
+
+  &.selected {
+    border-color: $blue-accent;
+    border-width: 2px;
+    background: $fpv-bg;
+    color: $blue-accent;
+  }
+}
+
+.notif-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.submit-btn {
+  @include btn-primary;
+  width: 100%;
+  padding: 14px;
+  font-size: 0.9375rem;
+  margin-top: 4px;
+
+  &.disabled {
+    background: $text-muted;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

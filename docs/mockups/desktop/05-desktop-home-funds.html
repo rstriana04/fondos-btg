@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>FondosBTG Desktop - Home / Funds List</title>
+<style>
+body{margin:0;padding:0;background:#F5F7FA;font-family:-apple-system,system-ui,sans-serif}
+.app{display:flex;min-height:100vh}
+.sidebar{width:240px;background:#0A2647;padding:0;display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0}
+.sidebar-logo{padding:28px 24px 8px;font-size:20px;font-weight:500;color:#FFFFFF;letter-spacing:-0.3px}
+.sidebar-subtitle{padding:0 24px 28px;font-size:12px;color:#85B7EB}
+.sidebar-nav{flex:1;padding:0 12px}
+.nav-link{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:10px;font-size:14px;color:#85B7EB;cursor:pointer;margin-bottom:4px;text-decoration:none;transition:background 0.15s}
+.nav-link:hover{background:rgba(255,255,255,0.08)}
+.nav-link.active{background:rgba(255,255,255,0.12);color:#FFFFFF;font-weight:500}
+.nav-link svg{flex-shrink:0}
+.sidebar-footer{padding:20px 24px;border-top:1px solid rgba(255,255,255,0.08);font-size:11px;color:#85B7EB}
+.main{margin-left:240px;flex:1;padding:0}
+.topbar{background:#FFFFFF;border-bottom:0.5px solid #E8ECF1;padding:20px 40px;display:flex;justify-content:space-between;align-items:center}
+.topbar h1{font-size:22px;font-weight:500;color:#0A2647;margin:0}
+.balance-card{display:flex;align-items:center;gap:16px;background:#0A2647;border-radius:12px;padding:14px 24px}
+.balance-label{font-size:12px;color:#85B7EB;margin:0}
+.balance-amount{font-size:22px;font-weight:500;color:#FFFFFF;margin:2px 0 0}
+.content{padding:32px 40px}
+.section-title{font-size:16px;font-weight:500;color:#444441;margin:0 0 20px}
+.funds-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+.fund-card{background:#FFFFFF;border-radius:14px;padding:20px;border:0.5px solid #E8ECF1;display:flex;flex-direction:column;gap:12px;transition:border-color 0.15s}
+.fund-card:hover{border-color:#B5D4F4}
+.fund-card-header{display:flex;justify-content:space-between;align-items:flex-start}
+.fund-name{font-size:15px;font-weight:500;color:#0A2647;margin:0 0 4px}
+.fund-min{font-size:13px;color:#888780;margin:0}
+.badge{display:inline-block;font-size:11px;font-weight:500;padding:3px 10px;border-radius:6px}
+.badge-fpv{background:#E6F1FB;color:#0C447C}
+.badge-fic{background:#EEEDFE;color:#3C3489}
+.fund-card-footer{display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:0.5px solid #E8ECF1}
+.fund-min-label{font-size:12px;color:#888780}
+.fund-min-value{font-size:15px;font-weight:500;color:#0A2647}
+.btn-sub{background:#2C74B3;color:white;border:none;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:500;cursor:pointer;transition:background 0.15s}
+.btn-sub:hover{background:#205295}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px}
+.stat-card{background:#FFFFFF;border-radius:12px;padding:18px 20px;border:0.5px solid #E8ECF1}
+.stat-label{font-size:12px;color:#888780;margin:0 0 4px}
+.stat-value{font-size:20px;font-weight:500;color:#0A2647;margin:0}
+.stat-sub{font-size:11px;color:#1D9E75;margin:4px 0 0}
+</style>
+</head>
+<body>
+<!--
+  MOCKUP: Desktop Home — Funds List
+  LAYOUT: Fixed sidebar (240px) + scrollable main content
+  BREAKPOINT: >= 1024px
+
+  DESIGN NOTES — DESKTOP ADAPTATIONS:
+  - Sidebar replaces bottom nav: fixed left, navy bg (#0A2647)
+    - Logo "FondosBTG" at top with subtitle
+    - Nav links with icons, active state has white bg overlay (12% opacity)
+    - Hover: 8% white overlay
+  - Topbar: white bg, page title left, balance card right
+    - Balance card: navy bg, compact horizontal layout
+  - Stats row: 3 metric cards (saldo, invertido, fondos activos)
+  - Funds grid: responsive auto-fill grid, min 320px per card
+  - Fund cards: vertical layout with header (badge + name), footer (min amount + subscribe btn)
+  - Cards have hover effect: border turns light blue (#B5D4F4)
+  - Subscribe button: #2C74B3, hover darkens to #205295
+  
+  RESPONSIVE BEHAVIOR:
+  - >= 1280px: 3 cards per row
+  - >= 960px: 2 cards per row  
+  - < 960px: fallback to mobile layout (not shown here)
+-->
+<div class="app">
+  <aside class="sidebar">
+    <div class="sidebar-logo">FondosBTG</div>
+    <div class="sidebar-subtitle">BTG Pactual Colombia</div>
+    <nav class="sidebar-nav">
+      <a class="nav-link active" href="#">
+        <svg width="20" height="20" viewBox="0 0 20 20"><rect x="2" y="10" width="4" height="8" rx="1" fill="currentColor"/><rect x="8" y="6" width="4" height="12" rx="1" fill="currentColor"/><rect x="14" y="2" width="4" height="16" rx="1" fill="currentColor"/></svg>
+        Fondos disponibles
+      </a>
+      <a class="nav-link" href="#">
+        <svg width="20" height="20" viewBox="0 0 20 20"><rect x="2" y="3" width="16" height="4" rx="1" fill="currentColor"/><rect x="2" y="9" width="16" height="4" rx="1" fill="currentColor"/><rect x="2" y="15" width="10" height="4" rx="1" fill="currentColor"/></svg>
+        Mis fondos
+      </a>
+      <a class="nav-link" href="#">
+        <svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M10 6v4l3 2" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+        Historial
+      </a>
+    </nav>
+    <div class="sidebar-footer">© 2026 FondosBTG</div>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <h1>Fondos disponibles</h1>
+      <div class="balance-card">
+        <div>
+          <div class="balance-label">Saldo disponible</div>
+          <div class="balance-amount">$500.000</div>
+        </div>
+      </div>
+    </div>
+    <div class="content">
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-label">Saldo disponible</div>
+          <div class="stat-value">$500.000</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Total invertido</div>
+          <div class="stat-value">$0</div>
+          <div class="stat-sub">0 fondos activos</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Fondos disponibles</div>
+          <div class="stat-value">5</div>
+          <div class="stat-sub">3 FPV · 2 FIC</div>
+        </div>
+      </div>
+      <div class="section-title">Todos los fondos</div>
+      <div class="funds-grid">
+        <div class="fund-card">
+          <div class="fund-card-header">
+            <div>
+              <div class="fund-name">FPV BTG Pactual Recaudadora</div>
+              <div class="fund-min">Fondo de inversión colectiva</div>
+            </div>
+            <span class="badge badge-fpv">FPV</span>
+          </div>
+          <div class="fund-card-footer">
+            <div>
+              <div class="fund-min-label">Monto mínimo</div>
+              <div class="fund-min-value">$75.000</div>
+            </div>
+            <button class="btn-sub">Suscribir</button>
+          </div>
+        </div>
+        <div class="fund-card">
+          <div class="fund-card-header">
+            <div>
+              <div class="fund-name">FPV BTG Pactual Ecopetrol</div>
+              <div class="fund-min">Fondo de inversión colectiva</div>
+            </div>
+            <span class="badge badge-fpv">FPV</span>
+          </div>
+          <div class="fund-card-footer">
+            <div>
+              <div class="fund-min-label">Monto mínimo</div>
+              <div class="fund-min-value">$125.000</div>
+            </div>
+            <button class="btn-sub">Suscribir</button>
+          </div>
+        </div>
+        <div class="fund-card">
+          <div class="fund-card-header">
+            <div>
+              <div class="fund-name">Deuda Privada</div>
+              <div class="fund-min">Fondo de inversión colectiva</div>
+            </div>
+            <span class="badge badge-fic">FIC</span>
+          </div>
+          <div class="fund-card-footer">
+            <div>
+              <div class="fund-min-label">Monto mínimo</div>
+              <div class="fund-min-value">$50.000</div>
+            </div>
+            <button class="btn-sub">Suscribir</button>
+          </div>
+        </div>
+        <div class="fund-card">
+          <div class="fund-card-header">
+            <div>
+              <div class="fund-name">FDO-Acciones</div>
+              <div class="fund-min">Fondo de inversión colectiva</div>
+            </div>
+            <span class="badge badge-fic">FIC</span>
+          </div>
+          <div class="fund-card-footer">
+            <div>
+              <div class="fund-min-label">Monto mínimo</div>
+              <div class="fund-min-value">$250.000</div>
+            </div>
+            <button class="btn-sub">Suscribir</button>
+          </div>
+        </div>
+        <div class="fund-card">
+          <div class="fund-card-header">
+            <div>
+              <div class="fund-name">FPV BTG Pactual Dinámica</div>
+              <div class="fund-min">Fondo de inversión colectiva</div>
+            </div>
+            <span class="badge badge-fpv">FPV</span>
+          </div>
+          <div class="fund-card-footer">
+            <div>
+              <div class="fund-min-label">Monto mínimo</div>
+              <div class="fund-min-value">$100.000</div>
+            </div>
+            <button class="btn-sub">Suscribir</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+@use 'styles/variables' as *;
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: $bottom-nav-height;
+  background: $bg-white;
+  border-top: 1px solid $divider;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 100;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 16px;
+  color: $text-muted;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  border-radius: 8px;
+
+  &.active {
+    color: $blue-accent;
+  }
+}
+
+.nav-icon {
+  width: 22px;
+  height: 22px;
+}
+
+.nav-label {
+  font-size: 0.6875rem;
+  font-weight: 500;
+}

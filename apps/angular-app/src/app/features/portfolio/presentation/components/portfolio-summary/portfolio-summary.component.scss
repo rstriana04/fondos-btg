@@ -1,0 +1,38 @@
+@use 'styles/variables' as *;
+@use 'styles/mixins' as *;
+
+.summary-card {
+  @include card;
+  display: flex;
+  align-items: center;
+  padding: 20px 24px;
+  gap: 24px;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.summary-label {
+  font-size: 0.75rem;
+  color: $text-secondary;
+  font-weight: 500;
+}
+
+.summary-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: $navy;
+
+  &.invested {
+    color: $success-dark;
+  }
+}
+
+.summary-divider {
+  width: 1px;
+  height: 40px;
+  background: $divider;
+}

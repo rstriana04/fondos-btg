@@ -1,0 +1,46 @@
+@use 'styles/variables' as *;
+@use 'styles/mixins' as *;
+
+.layout {
+  min-height: 100vh;
+}
+
+.layout-sidebar {
+  display: none;
+
+  @include desktop {
+    display: block;
+  }
+}
+
+.layout-main {
+  @include desktop {
+    margin-left: $sidebar-width;
+  }
+}
+
+.layout-header {
+  display: block;
+
+  @include desktop {
+    display: block;
+  }
+}
+
+.layout-content {
+  padding: 16px;
+  padding-bottom: calc(#{$bottom-nav-height} + 24px);
+
+  @include desktop {
+    padding: 0 32px 32px;
+    padding-bottom: 32px;
+  }
+}
+
+.layout-bottom-nav {
+  display: block;
+
+  @include desktop {
+    display: none;
+  }
+}

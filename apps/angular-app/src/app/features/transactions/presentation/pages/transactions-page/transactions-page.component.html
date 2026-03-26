@@ -1,0 +1,60 @@
+<div class="transactions-page">
+  <h2 class="page-title">Historial de transacciones</h2>
+
+  @if (store.loading()) {
+    <app-loading-spinner />
+  } @else if (store.error()) {
+    <app-error-message [message]="store.error()!" />
+  } @else {
+    <!-- Mobile: list items -->
+    <div class="transactions-list">
+      @for (tx of store.transactions(); track tx.id) {
+        <app-transaction-item [transaction]="tx" />
+      } @empty {
+        <div class="empty-state">
+          <p class="empty-text">No hay transacciones registradas.</p>
+        </div>
+      }
+    </div>
+
+    <!-- Desktop: table -->
+    <div class="transactions-table-wrapper">
+      @if (store.transactions().length > 0) {
+        <table class="transactions-table">
+          <thead>
+            <tr>
+              <th>Tipo</th>
+              <th>Fondo</th>
+              <th>Categoria</th>
+              <th>Fecha</th>
+              <th>Notificacion</th>
+              <th class="amount-col">Monto</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (tx of store.transactions(); track tx.id) {
+              <tr>
+                <td>
+                  <span class="tx-type-badge" [class.subscription]="tx.type === 'subscription'" [class.cancellation]="tx.type === 'cancellation'">
+                    {{ tx.type === 'subscription' ? 'Suscripcion' : 'Cancelacion' }}
+                  </span>
+                </td>
+                <td class="fund-name-cell">{{ tx.fundName | fundName }}</td>
+                <td><app-fund-category-badge [category]="tx.category" /></td>
+                <td>{{ tx.date | friendlyDate }}</td>
+                <td>{{ tx.notification }}</td>
+                <td class="amount-cell" [class.subscription]="tx.type === 'subscription'" [class.cancellation]="tx.type === 'cancellation'">
+                  {{ tx.type === 'subscription' ? '-' : '+' }}{{ tx.amount | copCurrency }}
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      } @else {
+        <div class="empty-state">
+          <p class="empty-text">No hay transacciones registradas.</p>
+        </div>
+      }
+    </div>
+  }
+</div>

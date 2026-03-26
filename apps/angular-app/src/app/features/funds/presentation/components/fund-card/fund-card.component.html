@@ -1,0 +1,12 @@
+<div class="fund-card">
+  <div class="card-header">
+    <app-fund-category-badge [category]="fund().category" />
+  </div>
+  <div class="card-body">
+    <h3 class="fund-name">{{ fund().name | fundName }}</h3>
+    <p class="fund-min">Monto minimo: <strong>{{ fund().minAmount | copCurrency }}</strong></p>
+  </div>
+  <div class="card-footer">
+    <button class="subscribe-btn" (click)="onSubscribe()">Suscribir</button>
+  </div>
+</div>

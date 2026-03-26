@@ -1,0 +1,23 @@
+<!-- Mobile header -->
+<header class="mobile-header">
+  <div class="mobile-header-content">
+    <h1 class="mobile-title">FondosBTG</h1>
+    <div class="mobile-balance">
+      <span class="balance-label">Saldo disponible</span>
+      <span class="balance-value">{{ store.balance() | copCurrency }}</span>
+    </div>
+  </div>
+</header>
+
+<!-- Desktop top bar -->
+<div class="desktop-topbar">
+  <div class="topbar-content">
+    <div class="topbar-left">
+      <h2 class="page-title">Panel de fondos</h2>
+    </div>
+    <div class="balance-card">
+      <span class="balance-card-label">Saldo disponible</span>
+      <span class="balance-card-value">{{ store.balance() | copCurrency }}</span>
+    </div>
+  </div>
+</div>
